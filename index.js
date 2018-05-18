@@ -16,16 +16,17 @@ const abi = require('./build/foocontract')
 const ETHSwap = web3.eth.contract(abi)
 
 web3.eth.getAccounts((err, accounts) => {
-  const from = accounts[0]
-  const to  = accounts[1]
+  const from = accounts[2]
+  const to  = accounts[3]
 
   console.log('From: ', from)
   console.log('To: ', to)
 
-  ETHSwap.new({
+  ETHSwap.new('0x3943fb730471b38900768f17e0ed5bbb48725a380b2fedb519bc29a829589ee1', 123, to, {
     data: contractData.trim(),
     from,
-    gas: 400000
+    gas: 400000,
+    value: 2e18
   }, (err, contract) => {
     if (err) {
       console.error(err)
@@ -37,19 +38,9 @@ web3.eth.getAccounts((err, accounts) => {
     console.log(`Contract Address: ${contract.address}`)
     const ETHSwapInstance = ETHSwap.at(contract.address)
 
-    ETHSwapInstance.set('0x3943fb730471b38900768f17e0ed5bbb48725a380b2fedb519bc29a829589ee1', 123, to, {
-      from,
-      gas: 400000,
-      value: 2e18
-    }, (err, txHash) => {
-      console.log('************************************************')
-      console.log('txHash', txHash)
-      console.log('************************************************')
+    ETHSwapInstance.claim('0x8ae25d6e387af39ed76da2422c00547089be2890d1f4882e630da8f672ccbb1d', { from: to })
 
-      ETHSwapInstance.claim('0x8ae25d6e387af39ed76da2422c00547089be2890d1f4882e630da8f672ccbb1d', { from: to })
-
-      web3.eth.getBalance(from, (err, bal) => console.log('from', bal.toString()))
-      web3.eth.getBalance(to, (err, bal) => console.log('to', bal.toString()))
-    })
+    web3.eth.getBalance(from, (err, bal) => console.log('from', bal.toString()))
+    web3.eth.getBalance(to, (err, bal) => console.log('to', bal.toString()))
   })
 })
