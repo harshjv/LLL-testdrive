@@ -1,0 +1,10 @@
+{
+  "name": "lll-testdrive",
+  "private": "true",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "web3": "^0.20.6"
+  }
+}

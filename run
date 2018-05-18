@@ -1,0 +1,5 @@
+#! /bin/bash
+
+lllc --hex --optimise src/foocontract.lsp > build/contractData && \
+  solc --bin --abi -o build --overwrite src/foocontract.sol && mv build/foocontract.abi build/foocontract.json && \
+  node index.js
