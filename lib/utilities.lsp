@@ -8,7 +8,7 @@
       body))
 
   (def 'only-recipient
-    (when (!= (caller) @@recipient)
+    (when (!= (caller) @@s_recipient)
       (panic)))
 
 )

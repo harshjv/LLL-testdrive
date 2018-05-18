@@ -6,7 +6,7 @@ contract foocontract {
   address deployer;
   address recipient;
 
-  function set (bytes32 _keyHash, uint _expiration, address _recipient) public payable {
+  constructor (bytes32 _keyHash, uint _expiration, address _recipient) public payable {
     keyHash = _keyHash;
     recipient = _recipient;
     expiration = _expiration;

@@ -15,8 +15,8 @@
   (returnlll
     (seq
       (function expire
-        (if (> (timestamp) @@expiration)
-          (send @@deployer (balance (address)))
+        (if (> (timestamp) @@s_expiration)
+          (send @@s_deployer (balance (address)))
           (jump invalid-location)))
 
       (function claim
@@ -24,8 +24,8 @@
           (mstore 0x0 (calldataload 0x04))
           (mstore 0x0 (sha3 0x0 0x20))
 
-          (if (= @@keyHash @0x0)
-            (send @@recipient (balance (address)))
+          (if (= @@s_keyHash @0x0)
+            (send @@s_recipient (balance (address)))
             (jump invalid-location))))
 
       (panic))))
