@@ -5,11 +5,6 @@
 
   (returnlll
     (seq
-      (function ethswap
-        (seq
-          (sstore 0x0 (calldataload 0x0))
-          (stop)))
-
       (function set
         (seq
           (sstore keyHash (calldataload 0x04))
@@ -30,4 +25,6 @@
 
           (if (= @@keyHash @0x0)
             (send @@recipient (balance (address)))
-            (jump invalid-location)))))))
+            (jump invalid-location))))
+
+      (panic))))
