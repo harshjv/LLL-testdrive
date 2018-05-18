@@ -12,3 +12,7 @@
 ```bash
 ./run
 ```
+
+---
+
+To learn more about LLL, visit https://github.com/zigguratt.
