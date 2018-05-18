@@ -38,9 +38,15 @@ web3.eth.getAccounts((err, accounts) => {
     console.log(`Contract Address: ${contract.address}`)
     const ETHSwapInstance = ETHSwap.at(contract.address)
 
-    ETHSwapInstance.claim('0x8ae25d6e387af39ed76da2422c00547089be2890d1f4882e630da8f672ccbb1d', { from: to })
+    // ETHSwapInstance.claim('0x8ae25d6e387af39ed76da2422c00547089be2890d1f4882e630da8f672ccbb1d', { from: to })
 
-    web3.eth.getBalance(from, (err, bal) => console.log('from', bal.toString()))
-    web3.eth.getBalance(to, (err, bal) => console.log('to', bal.toString()))
+    // web3.eth.getBalance(from, (err, bal) => console.log('from', bal.toString()))
+    // web3.eth.getBalance(to, (err, bal) => console.log('to', bal.toString()))
+
+    // For debugging purpose
+    console.log(ETHSwapInstance.get0().toString())
+    console.log(ETHSwapInstance.get1().toString())
+    console.log(ETHSwapInstance.get2().toString())
+    console.log(ETHSwapInstance.get3().toString())
   })
 })

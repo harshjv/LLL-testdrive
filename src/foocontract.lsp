@@ -14,6 +14,27 @@
 
   (returnlll
     (seq
+      ;; For debugging purpose
+      (function get0
+        (seq
+          (mstore 0x0 @@s_keyHash)
+          (return 0x0)))
+
+      (function get1
+        (seq
+          (mstore 0x0 @@s_expiration)
+          (return 0x0)))
+
+      (function get2
+        (seq
+          (mstore 0x0 @@s_recipient)
+          (return 0x0)))
+
+      (function get3
+        (seq
+          (mstore 0x0 @@s_deployer)
+          (return 0x0)))
+
       (function expire
         (if (> (timestamp) @@s_expiration)
           (send @@s_deployer (balance (address)))
