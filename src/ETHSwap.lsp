@@ -3,13 +3,15 @@
   (include "./lib/constants.lsp")
   (include "./lib/utilities.lsp")
 
-  (codecopy m_keyHash (bytecodesize) 0x20) ;; first 32bytes for bytes32 keyHash
-  (codecopy m_expiration (+ (bytecodesize) 0x20) 0x20) ;; next 32bytes for uint256 expiration
-  (codecopy m_recipient (+ (bytecodesize) 0x40) 0x20) ;; next 32bytes for padded address recipient (address: 20bytes)
+  (codecopy scratch (bytecodesize) 0x20) ;; first 32bytes for bytes32 keyHash
+  (sstore s_keyHash @scratch)
 
-  (sstore s_keyHash @m_keyHash)
-  (sstore s_expiration @m_expiration)
-  (sstore s_recipient @m_recipient)
+  (codecopy scratch (+ (bytecodesize) 0x20) 0x20) ;; next 32bytes for uint256 expiration
+  (sstore s_expiration @scratch)
+
+  (codecopy scratch (+ (bytecodesize) 0x40) 0x20) ;; next 32bytes for padded address recipient (address: 20bytes)
+  (sstore s_recipient @scratch)
+
   (sstore s_deployer (caller))
 
   (returnlll

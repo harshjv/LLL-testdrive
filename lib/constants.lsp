@@ -1,9 +1,7 @@
 (seq
 
   ;; Memory.
-  (def 'm_keyHash 0x20)
-  (def 'm_expiration 0x40)
-  (def 'm_recipient 0x60)
+  (def 'scratch 0x00)
 
   ;; Storage.
   (def 's_keyHash 0x00)
