@@ -10,7 +10,7 @@
   (sstore s_keyHash @m_keyHash)
   (sstore s_expiration @m_expiration)
   (sstore s_recipient @m_recipient)
-  (sstore s_deployer (origin))
+  (sstore s_deployer (caller))
 
   (returnlll
     (seq
