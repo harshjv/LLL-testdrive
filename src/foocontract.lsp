@@ -10,7 +10,7 @@
           (sstore keyHash (calldataload 0x04))
           (sstore expiration (calldataload 0x24))
           (sstore recipient (calldataload 0x44))
-          (sstore deployer (origin))
+          (sstore deployer (caller))
           (stop)))
 
       (function expire
