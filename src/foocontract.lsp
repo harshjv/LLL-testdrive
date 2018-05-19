@@ -24,7 +24,9 @@
           (mstore 0x0 (sha3 0x0 0x20))
 
           (if (= @@keyHash @0x0)
-            (send @@recipient (balance (address)))
+            (seq
+              (send @@recipient (balance (address)))
+              (stop))
             (jump invalid-location))))
 
       (panic))))
