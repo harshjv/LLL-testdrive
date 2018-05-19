@@ -3,10 +3,10 @@ const Web3 = require('web3')
 const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
 
 const lllContractData = fs.readFileSync('./build/ETHSwap.lll.bin', 'utf8')
-const soldContractData = fs.readFileSync('./build/ETHSwap.lll.bin', 'utf8')
+const solContractData = fs.readFileSync('./build/ETHSwap.bin', 'utf8')
 
 const lcl = lllContractData.length
-const scl = soldContractData.length
+const scl = solContractData.length
 
 console.log('*******')
 console.log(`> LLL produced ${(Math.round((scl/lcl) * 100)/100)}x smaller bytecode`)
