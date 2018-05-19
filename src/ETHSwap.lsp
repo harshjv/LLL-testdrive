@@ -17,14 +17,15 @@
   (returnlll
     (seq
       (function expire
-        (if (> (timestamp) @@s_expiration)
-          (seq
-            (send @@s_deployer (balance (address)))
-            (stop))
-          (jump invalid-location)))
+        (seq not-payable
+          (if (> (timestamp) @@s_expiration)
+            (seq
+              (send @@s_deployer (balance (address)))
+              (stop))
+            (jump invalid-location))))
 
       (function claim
-        (seq only-recipient
+        (seq not-payable only-recipient
           (mstore 0x0 (calldataload 0x04))
           (mstore 0x0 (sha3 0x0 0x20))
 

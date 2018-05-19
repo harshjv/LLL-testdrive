@@ -11,4 +11,7 @@
     (when (!= (caller) @@s_recipient)
       (panic)))
 
+  (def 'not-payable
+      (when (> (callvalue) 0x0)
+        (panic)))
 )
