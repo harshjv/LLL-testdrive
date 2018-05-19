@@ -2,6 +2,6 @@
 
 mkdir -p build
 
-lllc --hex --optimise src/foocontract.lsp > build/contractData && \
-  solc --bin --abi -o build --overwrite src/foocontract.sol && mv build/foocontract.abi build/foocontract.json && \
+lllc --hex --optimise src/ETHSwap.lsp > build/ETHSwap.lll.bin && \
+  solc --bin --abi -o build --overwrite src/ETHSwap.sol 2>/dev/null && mv build/ETHSwap.abi build/ETHSwap.json && \
   node index.js

@@ -1,10 +1,15 @@
 (seq
 
+  ;; Memory.
+  (def 'm_keyHash 0x20)
+  (def 'm_expiration 0x40)
+  (def 'm_recipient 0x60)
+
   ;; Storage.
-  (def 'keyHash 0x00)
-  (def 'expiration 0x01)
-  (def 'recipient 0x02)
-  (def 'deployer 0x03)
+  (def 's_keyHash 0x00)
+  (def 's_expiration 0x01)
+  (def 's_recipient 0x02)
+  (def 's_deployer 0x03)
 
   ;; Jumping here causes an EVM error.
   (def 'invalid-location 0x02)

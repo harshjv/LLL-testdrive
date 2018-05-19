@@ -1,12 +1,12 @@
 pragma solidity ^0.4.0;
 
-contract foocontract {
+contract ETHSwap {
   bytes32 keyHash;
-  uint expiration;
+  uint256 expiration;
   address deployer;
   address recipient;
 
-  function set (bytes32 _keyHash, uint _expiration, address _recipient) public payable {
+  constructor (bytes32 _keyHash, uint256 _expiration, address _recipient) public payable {
     keyHash = _keyHash;
     recipient = _recipient;
     expiration = _expiration;
