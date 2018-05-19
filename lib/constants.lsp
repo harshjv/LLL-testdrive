@@ -18,11 +18,4 @@
   (def 'claim 0xbd66528a) ; claim(bytes32)
   (def 'expire 0x79599f96) ; expire()
 
-  ;; For debugging purpose
-
-  (def 'get0 0x371988fa) ; get0(bytes32)
-  (def 'get1 0x9c117f0f) ; get1(uint256)
-  (def 'get2 0x243de4ee) ; get2(address)
-  (def 'get3 0xf13e90ae) ; get3(address)
-
 )

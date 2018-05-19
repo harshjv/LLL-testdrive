@@ -2,31 +2,39 @@ const fs = require('fs')
 const Web3 = require('web3')
 const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
 
-const contractData = fs.readFileSync('./build/contractData', 'utf8')
-const solidityContractData = fs.readFileSync('./build/foocontract.bin', 'utf8')
+const lllContractData = fs.readFileSync('./build/ETHSwap.lll.bin', 'utf8')
+const soldContractData = fs.readFileSync('./build/ETHSwap.lll.bin', 'utf8')
 
-const lcl = contractData.length
-const scl = solidityContractData.length
+const lcl = lllContractData.length
+const scl = soldContractData.length
 
-console.log('*********************************************************************')
-console.log('*****************', `LLL produced ${(Math.round((scl/lcl) * 100)/100)}x smaller bytecode`, '****************')
-console.log('*********************************************************************')
+console.log('*******')
+console.log(`> LLL produced ${(Math.round((scl/lcl) * 100)/100)}x smaller bytecode`)
 
-const abi = require('./build/foocontract')
+const abi = require('./build/ETHSwap')
 const ETHSwap = web3.eth.contract(abi)
 
 web3.eth.getAccounts((err, accounts) => {
-  const from = accounts[2]
-  const to  = accounts[3]
+  console.log('*******')
 
-  console.log('From: ', from)
-  console.log('To: ', to)
+  const value = 2e18
+  const from = accounts[3]
+  const to  = accounts[4]
+
+  console.log(`Value: ${value} wei`);
+  console.log(`From: ${from}`)
+  console.log(`To: ${to}`)
+
+  console.log('*******')
+
+  web3.eth.getBalance(from, (err, bal) => console.log('From:', bal.toString()))
+  web3.eth.getBalance(to, (err, bal) => console.log('To:', bal.toString()))
 
   ETHSwap.new('0x3943fb730471b38900768f17e0ed5bbb48725a380b2fedb519bc29a829589ee1', 123, to, {
-    data: contractData.trim(),
+    data: lllContractData.trim(),
     from,
     gas: 400000,
-    value: 2e18
+    value
   }, (err, contract) => {
     if (err) {
       console.error(err)
@@ -35,18 +43,19 @@ web3.eth.getAccounts((err, accounts) => {
 
     if (!contract.address) return
 
+    console.log('*******')
+
     console.log(`Contract Address: ${contract.address}`)
+
+    console.log('*******')
+
     const ETHSwapInstance = ETHSwap.at(contract.address)
+    const txHash = ETHSwapInstance.claim('0x8ae25d6e387af39ed76da2422c00547089be2890d1f4882e630da8f672ccbb1d', { from: to })
+    console.log(`> ${txHash}`)
 
-    // ETHSwapInstance.claim('0x8ae25d6e387af39ed76da2422c00547089be2890d1f4882e630da8f672ccbb1d', { from: to })
+    console.log('*******')
 
-    // web3.eth.getBalance(from, (err, bal) => console.log('from', bal.toString()))
-    // web3.eth.getBalance(to, (err, bal) => console.log('to', bal.toString()))
-
-    // For debugging purpose
-    console.log(ETHSwapInstance.get0().toString())
-    console.log(ETHSwapInstance.get1().toString())
-    console.log(ETHSwapInstance.get2().toString())
-    console.log(ETHSwapInstance.get3().toString())
+    web3.eth.getBalance(from, (err, bal) => console.log('From:', bal.toString()))
+    web3.eth.getBalance(to, (err, bal) => console.log('To:', bal.toString()))
   })
 })

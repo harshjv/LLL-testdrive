@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 
-contract foocontract {
+contract ETHSwap {
   bytes32 keyHash;
   uint256 expiration;
   address deployer;
@@ -23,23 +23,5 @@ contract foocontract {
     if (now > expiration) {
       deployer.transfer(address(this).balance);
     }
-  }
-
-  // for debugging purpose
-
-  function get0() public constant returns (bytes32) {
-    return keyHash;
-  }
-
-  function get1() public constant returns (uint256) {
-    return expiration;
-  }
-
-  function get2() public constant returns (address) {
-    return deployer;
-  }
-
-  function get3() public constant returns (address) {
-    return recipient;
   }
 }

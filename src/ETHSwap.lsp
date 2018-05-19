@@ -5,7 +5,7 @@
 
   (codecopy m_keyHash (bytecodesize) 0x20) ;; first 32bytes for bytes32 keyHash
   (codecopy m_expiration (+ (bytecodesize) 0x20) 0x20) ;; next 32bytes for uint256 expiration
-  (codecopy m_recipient (+ (bytecodesize) 0x4c) 0x14) ;; skip 12 bytes and read 20 bytes for address recipient
+  (codecopy m_recipient (+ (bytecodesize) 0x40) 0x20) ;; next 32bytes for padded address recipient (address: 20bytes)
 
   (sstore s_keyHash @m_keyHash)
   (sstore s_expiration @m_expiration)
@@ -14,30 +14,11 @@
 
   (returnlll
     (seq
-      ;; For debugging purpose
-      (function get0
-        (seq
-          (mstore 0x0 @@s_keyHash)
-          (return 0x0)))
-
-      (function get1
-        (seq
-          (mstore 0x0 @@s_expiration)
-          (return 0x0)))
-
-      (function get2
-        (seq
-          (mstore 0x0 @@s_recipient)
-          (return 0x0)))
-
-      (function get3
-        (seq
-          (mstore 0x0 @@s_deployer)
-          (return 0x0)))
-
       (function expire
         (if (> (timestamp) @@s_expiration)
-          (send @@s_deployer (balance (address)))
+          (seq
+            (send @@s_deployer (balance (address)))
+            (stop))
           (jump invalid-location)))
 
       (function claim
